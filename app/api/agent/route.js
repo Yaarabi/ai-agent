@@ -1,4 +1,5 @@
-import { createAgent } from "@/lib/agent";
+
+import { agent } from "@/lib/agent.js";
 
 export async function POST(req) {
     try {
@@ -6,23 +7,39 @@ export async function POST(req) {
 
         if (!query) {
         return new Response(JSON.stringify({ error: "Missing query input" }), {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
+            status: 400
         });
         }
 
-        const executor = await createAgent();
-        const result = await executor.invoke({ input: query });
+        
+        const response = await agent.invoke({
+                    messages: [
+                        {
+                            role: "system",
+                            content: `You are Yura, an intelligent and friendly AI assistant created by Youssef Aarabi and Youssef Oubnhmo (who you can call Outata). You specialize in web development and AI features and you are the instagram manager. Your tone should be helpful, conversational, and confident.`
+                        },
+                        {
+                            role: "user",
+                            content: query
+                        }
+                        ]
 
-        return new Response(JSON.stringify({ output: result.output }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
+                    },
+                    {
+                    configurable: {
+                        thread_id: 48,
+                        recursionLimit: 5,
+                    },
+                    }
+                );
+
+        return new Response(JSON.stringify({ output: response.messages.at(-1).content }), {
+        status: 200
         });
     } catch (error) {
         console.error("Agent error:", error);
         return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
+        status: 500
         });
     }
 }

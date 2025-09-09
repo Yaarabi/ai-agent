@@ -11,20 +11,25 @@
   },
   "dependencies": {
     "@langchain/anthropic": "^0.3.24",
-    "@langchain/core": "^0.3.66",
+    "@langchain/core": "^0.3.74",
     "@langchain/langgraph": "^0.3.11",
     "@langchain/langgraph-checkpoint-mongodb": "^0.0.6",
     "@langchain/mistralai": "^0.2.1",
     "@langchain/mongodb": "^0.1.0",
     "@mistralai/mistralai": "^1.7.5",
     "@supabase/supabase-js": "^2.53.0",
+    "axios": "^1.11.0",
     "dotenv": "^17.2.1",
-    "langchain": "^0.3.30",
+    "langchain": "^0.3.33",
+    "lucide-react": "^0.543.0",
     "mongoose": "^8.16.4",
+    "motion": "^12.23.12",
     "next": "15.4.2",
     "openai": "^5.10.1",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
