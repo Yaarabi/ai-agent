@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 
-export default function ChatInput({ onSend }){
+export default function ChatInput({ onSend, isTyping }) {
     const [input, setInput] = useState("");
 
     const handleSubmit = (e) => {
@@ -26,6 +26,7 @@ export default function ChatInput({ onSend }){
             onChange={(e) => setInput(e.target.value)}
         />
         <button
+            disabled={isTyping || !input.trim()}
             type="submit"
             className="p-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 transition shadow-md"
         >

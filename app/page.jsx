@@ -31,24 +31,25 @@ export default function Home() {
   }, [messages]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-br from-gray-900 via-black to-gray-950 text-gray-100">
-      <div className="flex flex-col w-full max-w-3xl h-[90vh] rounded-2xl shadow-xl overflow-hidden border border-gray-800 bg-gradient-to-b from-gray-800/80 to-gray-900/90 backdrop-blur-md">
-        {/* Header */}
-        <header className="p-5 border-b border-gray-700 bg-gray-900/80 backdrop-blur-md">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+    <div className="h-screen w-full flex justify-center items-center bg-gradient-to-br from-gray-950 via-gray-900 to-black text-gray-100">
+      <div className="flex flex-col w-full max-w-3xl h-[92vh] rounded-2xl overflow-hidden">
+        
+        <header className="p-5 bg-gray-900/70 backdrop-blur-sm border-b border-gray-800">
+          <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
             Yura Assistant
           </h1>
         </header>
 
         {/* Messages */}
-        <main className="flex-1 overflow-y-auto px-6 py-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+        <main className="flex-1 overflow-y-auto px-6 py-6 space-y-5">
           <AnimatePresence>
             {messages.map((msg, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
               >
                 <MessageBubble role={msg.role} content={msg.content} />
               </motion.div>
@@ -59,12 +60,14 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex items-center space-x-2 px-3 py-2 bg-gray-800/70 rounded-xl w-fit"
-              >
-              <span className="text-xs text-gray-400 ml-2">typing</span>
-              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150" />
-              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300" />
+              className="flex items-center  gap-2 px-4 py-1"
+            >
+              <span className="text-xs text-gray-400">typing</span>
+              <div className="flex gap-1">
+                <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" />
+                <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce delay-150" />
+                <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce delay-300" />
+              </div>
             </motion.div>
           )}
 
@@ -72,8 +75,8 @@ export default function Home() {
         </main>
 
         {/* Input */}
-        <footer className="p-4 border-t border-gray-700 bg-gray-900/80 backdrop-blur-md">
-          <ChatInput onSend={handleSend} />
+        <footer className="p-4">
+          <ChatInput onSend={handleSend} isTyping = { isTyping } />
         </footer>
       </div>
     </div>

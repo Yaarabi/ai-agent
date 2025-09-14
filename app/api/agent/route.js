@@ -15,10 +15,6 @@ export async function POST(req) {
         const response = await agent.invoke({
                     messages: [
                         {
-                            role: "system",
-                            content: `You are Yura, an intelligent and friendly AI assistant created by Youssef Aarabi and Youssef Oubnhmo (who you can call Outata). You specialize in web development and AI features and you are the instagram manager. Your tone should be helpful, conversational, and confident.`
-                        },
-                        {
                             role: "user",
                             content: query
                         }
@@ -27,7 +23,7 @@ export async function POST(req) {
                     },
                     {
                     configurable: {
-                        thread_id: 48,
+                        thread_id: "thread-1",
                         recursionLimit: 5,
                     },
                     }
