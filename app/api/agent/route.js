@@ -29,15 +29,19 @@ export async function POST(req) {
                     }
                 );
         const output = response.messages.at(-1).content;
-        const action = response.messages.at(-1).tool;
+        const action = response.messages
+                .filter(msg => msg.tool_call_id)
+                .at(-1);
+        
 
         if (action){
-            return new Response(JSON.stringify({ output, action: action.results?.[0]?.action }), {
+            // console.log(action);
+            return new Response(JSON.stringify({ output, action: action.content }), {
                 status: 200
             });
         }
 
-        return new Response(JSON.stringify({ output: response.messages.at(-1).content }), {
+        return new Response(JSON.stringify({ output }), {
         status: 200
         });
     } catch (error) {
