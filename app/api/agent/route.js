@@ -28,6 +28,14 @@ export async function POST(req) {
                     },
                     }
                 );
+        const output = response.messages.at(-1).content;
+        const action = response.messages.at(-1).tool;
+
+        if (action){
+            return new Response(JSON.stringify({ output, action: action.results?.[0]?.action }), {
+                status: 200
+            });
+        }
 
         return new Response(JSON.stringify({ output: response.messages.at(-1).content }), {
         status: 200

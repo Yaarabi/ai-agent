@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import MessageBubble from "@/components/messageBuble";
 import ChatInput from "@/components/chatInput";
+import { useStore } from "../zustand/store";
+import InstagramCalendar from "@/components/instaCalendar";
 
 export default function Home() {
   const [messages, setMessages] = useState([]);
@@ -24,11 +26,32 @@ export default function Home() {
     const data = await res.json();
     setMessages((prev) => [...prev, { role: "agent", content: data.output }]);
     setIsTyping(false);
+    if (data.action) {
+      if (data.action === "Calendar opened") {
+        useStore.getState().setOpenCalender();
+      } else if (data.action === "Calendar closed") {
+        useStore.getState().setCloseCalender();
+      }
+    }
   };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const openCalender = useStore((state) => state.openCalender);
+
+//   useEffect(() => {
+//     const lastMessage = messages.at(-1);
+//     if (lastMessage?.role === "agent") {
+//       if (lastMessage.content.includes("Calendar opened")) {
+//         useStore.getState().setOpenCalender();
+//       } else if (lastMessage.content.includes("Calendar closed")) {
+//         useStore.getState().setCloseCalender();
+//       }
+//     }
+// }, [messages]);
+
 
   return (
     <div className="h-screen w-full flex justify-center items-center bg-gradient-to-br from-gray-950 via-gray-900 to-black text-gray-100">
@@ -79,6 +102,7 @@ export default function Home() {
           <ChatInput onSend={handleSend} isTyping = { isTyping } />
         </footer>
       </div>
+      {openCalender && <InstagramCalendar />}
     </div>
   );
 }
