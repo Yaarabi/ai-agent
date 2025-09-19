@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+Yura - Intelligent AI Assistant
 
-First, run the development server:
+Yura is a cutting-edge, conversational AI assistant designed to simplify tasks, provide insights, and enhance productivity. Built with a focus on user-friendliness, adaptability, and intelligence, Yura assists with a wide range of tasks, from managing social media to answering queries, performing calculations, and storing important information.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+🌟 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Conversational Intelligence
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Engages in natural, context-aware conversations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Remembers past interactions and preferences for personalized assistance.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Uses advanced memory management to retain and recall important information.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Social Media Management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+Instagram Integration: Posts images with captions, searches for trending content, and manages scheduling.
+
+Content Creation: Finds relevant images and generates engaging captions.
+
+
+3. Task Automation
+
+
+Calculator: Computes prices, quantities, or any numerical operations.
+
+Calendar & Reports: Displays weekly performance reports and manages schedules.
+
+
+4. Memory & Knowledge Base
+
+
+Stores important facts, user preferences, and business information.
+
+Retrieves context from past conversations to provide accurate and relevant responses.
+
+Automatically summarizes long conversations for future reference.
+
+
+5. Customizable & Extensible
+
+
+Built with modular tools and functions for easy expansion.
+
+Supports integration with external APIs and databases.
+
+
+
+🛠️ Built With
+
+
+Natural Language Processing (NLP): For understanding and generating human-like responses.
+
+Function Calling: Executes specific tasks like posting to Instagram, searching images, and calculating prices.
+
+Memory Management System: Stores and retrieves conversation history and important facts.
+
+Modular Design: Tools and functions are decoupled for easy maintenance and scalability.
+
+
+
+🚀 Use Cases
+
+
+Business Automation: Manage social media posts, track performance, and automate repetitive tasks.
+
+Personal Assistant: Answer queries, store notes, and retrieve information quickly.
+
+E-commerce Support: Calculate product prices, manage inventory, and assist customers.
+
+Content Creation: Find images, generate captions, and schedule posts.
+
+
+
+📂 Project Structure
+
+ai-agent/
+├── app/
+│   ├── api/
+│   │   ├── agent/
+│   │   ├── memory/
+│   │   └── schedule/
+│   └── page.js
+├── components/
+│   ├── chatInput.jsx
+│   ├── instaCalendar.jsx
+│   ├── messageBuble.jsx
+│   └── report.jsx
+├── lib/
+│   ├── AI.js
+│   ├── agent.js
+│   ├── custom-tools.js
+│   ├── db.js
+│   ├── firstChat.js
+│   ├── longTermMemory.js
+│   ├── memory.js
+│   ├── memoryExample.js
+│   ├── shedule.js
+│   ├── splitText.js
+│   ├── test.js
+│   ├── tools.js
+│   └── toolsFunctions.js
+├── models/
+├── public/
+├── zustand/
+├── .gitignore
+├── README.md
+├── book.txt
+├── jsconfig.json
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+└── vercel.json
+
