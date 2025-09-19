@@ -30,18 +30,31 @@ export default function Home() {
     setIsTyping(false);
 
     if (data.action) {
-      if (data.action === "Calendar opened") {
-        useStore.getState().setOpenCalender();
-        setOpenReport(false);
-      } else if (data.action === "Calendar closed") {
-        useStore.getState().setCloseCalender();
-      } else if (data.action === "Report shown") {
-      setOpenReport(true);
+  switch (data.action) {
+    case "Calendar opened":
+      useStore.getState().setOpenCalender();
+      setOpenReport(false); 
+      break;
+
+    case "Calendar closed":
       useStore.getState().setCloseCalender();
-      } else if (data.action === "Report hidden") {
-        setOpenReport(false);
-      }
+      break;
+
+    case "Report shown":
+      setOpenReport(true);
+      useStore.getState().setCloseCalender(); 
+      break;
+
+    case "Report hidden":
+      setOpenReport(false);
+      break;
+
+    default:
+      console.warn("Unknown action:", data.action);
+      break;
   }
+}
+
   };
 
   useEffect(() => {
