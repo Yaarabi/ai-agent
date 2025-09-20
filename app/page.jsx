@@ -7,6 +7,7 @@ import ChatInput from "@/components/chatInput";
 import { useStore } from "../zustand/store";
 import InstagramCalendar from "@/components/instaCalendar";
 import ReportCard from "@/components/report";
+import Image from "next/image";
 
 export default function Home() {
   const [messages, setMessages] = useState([]);
@@ -68,6 +69,7 @@ export default function Home() {
       <div className="flex flex-col w-full max-w-[45vw] h-[92vh] rounded-2xl overflow-hidden shadow-2xl border border-gray-800/40">
         
         <header className="p-5 bg-gray-900/70 backdrop-blur-md border-b border-gray-800">
+          <Image src="/logo.png" alt="Yura" width={32} height={32} />
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
             Yura Assistant
           </h1>
