@@ -7,11 +7,14 @@ import ChatInput from "@/components/chatInput";
 import { useStore } from "../zustand/store";
 import InstagramCalendar from "@/components/instaCalendar";
 import ReportCard from "@/components/report";
+import { Chart } from "@/components/charts";
 
 export default function Home() {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [openReport, setOpenReport] = useState(false);
+  const [openComponent, setOpenComponent] = useState(false);
+  const [componentData, setComponentData] = useState(null);
   const messagesEndRef = useRef(null);
 
   const handleSend = async (message) => {
@@ -30,31 +33,48 @@ export default function Home() {
     setIsTyping(false);
 
     if (data.action) {
-  switch (data.action) {
-    case "Calendar opened":
-      useStore.getState().setOpenCalender();
-      setOpenReport(false); 
-      break;
+      switch (data.action.type || data.action) {
+        case "Calendar opened":
+          useStore.getState().setOpenCalender();
+          setOpenReport(false);
+          setOpenComponent(false);
+          break;
 
-    case "Calendar closed":
-      useStore.getState().setCloseCalender();
-      break;
+        case "Calendar closed":
+          useStore.getState().setCloseCalender();
+          break;
 
-    case "Report shown":
-      setOpenReport(true);
-      useStore.getState().setCloseCalender(); 
-      break;
+        case "Report shown":
+          setOpenReport(true);
+          setOpenComponent(false);
+          useStore.getState().setCloseCalender();
+          break;
 
-    case "Report hidden":
-      setOpenReport(false);
-      break;
+        case "Report hidden":
+          setOpenReport(false);
+          break;
 
-    default:
-      console.warn("Unknown action:", data.action);
-      break;
-  }
-}
+        case "Chart Shown":
+          setOpenReport(false);
+          setOpenComponent(true);
+          setComponentData({
+            chartType: data.action.chartType,
+            data: data.action.data,
+            options: data.action.options
+          });
+          useStore.getState().setCloseCalender();
+          break;
 
+        case "Chart hidden":
+          setOpenComponent(false);
+          setComponentData(null);
+          break;
+
+        default:
+          console.warn("Unknown action:", data.action);
+          break;
+      }
+    }
   };
 
   useEffect(() => {
@@ -66,7 +86,6 @@ export default function Home() {
   return (
     <div className="h-screen w-full flex justify-evenly items-center bg-gradient-to-br from-gray-950 via-gray-900 to-black text-gray-100 px-4">
       <div className="flex flex-col w-full max-w-[45vw] h-[92vh] rounded-2xl overflow-hidden shadow-2xl border border-gray-800/40">
-        
         <header className="p-5 bg-gray-900/70 backdrop-blur-md border-b border-gray-800">
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
             Yura Assistant
@@ -124,6 +143,7 @@ export default function Home() {
           <InstagramCalendar />
         </motion.div>
       )}
+
       {/* Report */}
       {openReport && (
         <motion.div
@@ -132,7 +152,23 @@ export default function Home() {
           transition={{ type: "spring", stiffness: 80 }}
           className="hidden lg:block ml-6"
         >
-          <ReportCard/>
+          <ReportCard />
+        </motion.div>
+      )}
+
+      {/* Chart Component */}
+      {openComponent && componentData && (
+        <motion.div
+          initial={{ x: 80, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 80 }}
+          className="hidden lg:block ml-6"
+        >
+          <Chart
+            chartType={componentData.chartType}
+            data={componentData.data}
+            options={componentData.options}
+          />
         </motion.div>
       )}
     </div>

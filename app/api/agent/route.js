@@ -29,19 +29,23 @@ export async function POST(req) {
                     }
                 );
         const output = response.messages.at(-1).content;
-        const action = response.messages
+        const actionMsg = response.messages
                 .filter(msg => msg.tool_call_id)
                 .at(-1);
         
 
-        if (action){
-            // console.log(response.messages);
-            return new Response(JSON.stringify({ output, action: action.content }), {
-                status: 200
-            });
+        let action = null;
+
+        if (actionMsg?.content) {
+        try {
+            const parsed = JSON.parse(actionMsg.content);
+            action = parsed;
+        } catch {
+            action = actionMsg.content;
+        }
         }
 
-        return new Response(JSON.stringify({ output }), {
+        return new Response(JSON.stringify({ output, action }), {
         status: 200
         });
     } catch (error) {
