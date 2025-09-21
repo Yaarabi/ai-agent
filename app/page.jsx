@@ -158,18 +158,11 @@ export default function Home() {
 
       {/* Chart Component */}
       {openComponent && componentData && (
-        <motion.div
-          initial={{ x: 80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 80 }}
-          className="hidden lg:block ml-6"
-        >
           <Chart
             chartType={componentData.chartType}
             data={componentData.data}
             options={componentData.options}
           />
-        </motion.div>
       )}
     </div>
   );
