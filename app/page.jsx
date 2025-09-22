@@ -15,6 +15,7 @@ export default function Home() {
   const [openReport, setOpenReport] = useState(false);
   const [openComponent, setOpenComponent] = useState(false);
   const [componentData, setComponentData] = useState(null);
+  const [calendar, setCalendar] = useState([])
   const messagesEndRef = useRef(null);
 
   const handleSend = async (message) => {
@@ -33,14 +34,16 @@ export default function Home() {
     setIsTyping(false);
 
     if (data.action) {
+      console.log(data.action)
       switch (data.action.type || data.action) {
-        case "Calendar opened":
+        case "Calendar shown":
           useStore.getState().setOpenCalender();
           setOpenReport(false);
           setOpenComponent(false);
+          setCalendar(data.action);
           break;
 
-        case "Calendar closed":
+        case "Calendar hidden":
           useStore.getState().setCloseCalender();
           break;
 
@@ -140,7 +143,7 @@ export default function Home() {
           transition={{ type: "spring", stiffness: 80 }}
           className="hidden lg:block ml-6"
         >
-          <InstagramCalendar />
+          <InstagramCalendar calendar={calendar} />
         </motion.div>
       )}
 
