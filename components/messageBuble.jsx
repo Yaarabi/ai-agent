@@ -15,8 +15,8 @@ export default function MessageBubble({ role, content }) {
             minWidth: "100px",         
             maxWidth: "75%",           
             width: "fit-content",      
-            wordBreak: "break-word",
-            whiteSpace: "pre-wrap",
+            // wordBreak: "break-word",
+            // whiteSpace: "pre-wrap",
         }}
         >
         <ReactMarkdown
