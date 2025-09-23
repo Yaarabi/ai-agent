@@ -8,6 +8,13 @@ import { useStore } from "../zustand/store";
 import InstagramCalendar from "@/components/instaCalendar";
 import ReportCard from "@/components/report";
 import { Chart } from "@/components/charts";
+import {
+  TableView,
+  CodeView,
+  VideoView,
+  ImageView,
+  ItemsView,
+} from "@/components/ToolViews";
 
 export default function Home() {
   const [messages, setMessages] = useState([]);
@@ -15,7 +22,7 @@ export default function Home() {
   const [openReport, setOpenReport] = useState(false);
   const [openComponent, setOpenComponent] = useState(false);
   const [componentData, setComponentData] = useState(null);
-  const [calendar, setCalendar] = useState([])
+  const [calendar, setCalendar] = useState([]);
   const messagesEndRef = useRef(null);
 
   const handleSend = async (message) => {
@@ -25,7 +32,7 @@ export default function Home() {
 
     const res = await fetch("/api/agent", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-item": "application/json" },
       body: JSON.stringify({ query: message }),
     });
 
@@ -34,7 +41,7 @@ export default function Home() {
     setIsTyping(false);
 
     if (data.action) {
-      console.log(data.action)
+      console.log(data.action);
       switch (data.action.type || data.action) {
         case "Calendar shown":
           useStore.getState().setOpenCalender();
@@ -57,18 +64,49 @@ export default function Home() {
           setOpenReport(false);
           break;
 
-        case "Chart Shown":
+        case "Chart shown":
           setOpenReport(false);
           setOpenComponent(true);
-          setComponentData({
-            chartType: data.action.chartType,
-            data: data.action.data,
-            options: data.action.options
-          });
+          setComponentData({ item: "chart", ...data.action });
           useStore.getState().setCloseCalender();
           break;
 
-        case "Chart hidden":
+        case "Table shown":
+          setOpenReport(false);
+          setOpenComponent(true);
+          setComponentData({ item: "table", ...data.action });
+          useStore.getState().setCloseCalender();
+          break;
+
+        case "Code shown": 
+          setOpenReport(false);
+          setOpenComponent(true);
+          setComponentData({ item: "code", ...data.action });
+          useStore.getState().setCloseCalender();
+          break;
+
+        case "Video shown":
+          setOpenReport(false);
+          setOpenComponent(true);
+          setComponentData({ item: "video", ...data.action });
+          useStore.getState().setCloseCalender();
+          break;
+
+        case "Image shown":
+          setOpenReport(false);
+          setOpenComponent(true);
+          setComponentData({ item: "image", ...data.action });
+          useStore.getState().setCloseCalender();
+          break;
+
+        case "Items shown":
+          setOpenReport(false);
+          setOpenComponent(true);
+          setComponentData({ item: "items", ...data.action });
+          useStore.getState().setCloseCalender();
+          break;
+
+        case "Component hidden":
           setOpenComponent(false);
           setComponentData(null);
           break;
@@ -140,7 +178,7 @@ export default function Home() {
         <motion.div
           initial={{ x: 80, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 80 }}
+          transition={{ item: "spring", stiffness: 80 }}
           className="hidden lg:block ml-6"
         >
           <InstagramCalendar calendar={calendar} />
@@ -152,20 +190,56 @@ export default function Home() {
         <motion.div
           initial={{ x: 80, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 80 }}
+          transition={{ item: "spring", stiffness: 80 }}
           className="hidden lg:block ml-6"
         >
           <ReportCard />
         </motion.div>
       )}
 
-      {/* Chart Component */}
+      {/* Dynamic Components */}
       {openComponent && componentData && (
-          <Chart
-            chartType={componentData.chartType}
-            data={componentData.data}
-            options={componentData.options}
-          />
+        <motion.div
+          initial={{ x: 80, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ item: "spring", stiffness: 80 }}
+          className="hidden lg:block ml-6"
+        >
+          {componentData.item === "chart" && (
+            <Chart
+              chartitem={componentData.chartitem}
+              data={componentData.data}
+              options={componentData.options}
+            />
+          )}
+          {componentData.item === "table" && (
+            <TableView
+              columns={componentData.columns}
+              rows={componentData.rows}
+              options={componentData.options}
+            />
+          )}
+          {componentData.item === "code" && (
+            <CodeView
+              language={componentData.language}
+              code={componentData.code}
+              options={componentData.options}
+            />
+          )}
+          {componentData.item === "video" && (
+            <VideoView url={componentData.url} options={componentData.options} />
+          )}
+          {componentData.item === "image" && (
+            <ImageView
+              url={componentData.url}
+              alt={componentData.alt}
+              options={componentData.options}
+            />
+          )}
+          {componentData.item === "items" && (
+            <ItemsView items={componentData.items} options={componentData.options} />
+          )}
+        </motion.div>
       )}
     </div>
   );
