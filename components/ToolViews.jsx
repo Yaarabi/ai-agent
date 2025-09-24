@@ -1,4 +1,5 @@
-
+"use client"
+import { useEffect, useRef } from "react"
 
 // Table Component
 export function TableView({ columns, rows, options }) {
@@ -38,13 +39,24 @@ export function TableView({ columns, rows, options }) {
 
 // Code Component
 export function CodeView({ language, code, options }) {
+
+    const codeRef = useRef(null);
+    
+    useEffect(() => {
+        if (codeRef.current) {
+            codeRef.current.scrollIntoView({ behavior: "smooth" });
+            }
+    }, [code]);
     return (
-        <pre
-        className="bg-gray-900/80 text-green-400 font-mono text-sm p-4 rounded-2xl shadow-xl overflow-x-auto border border-gray-800"
-        style={options?.style}
-        >
-        <code className={`language-${language}`}>{code}</code>
-        </pre>
+        <div ref={codeRef}>
+            <pre
+                className="bg-gray-900/80 text-green-400 font-mono text-sm p-4 rounded-2xl shadow-xl overflow-x-auto border border-gray-800"
+                style={options?.style}
+                
+            >
+                <code className={`language-${language}`}>{code}</code>
+            </pre>
+        </div>
     );
 }
 

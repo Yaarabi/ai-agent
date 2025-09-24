@@ -155,11 +155,11 @@ export default function Home() {
               animate={{ opacity: 1 }}
               className="flex items-center gap-2 px-4 py-1"
             >
-              <span className="text-xs text-gray-400">Compiling</span>
+              {/* <span className="text-xs text-gray-400">Compiling</span> */}
               <div className="flex gap-1">
-                <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
-                <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-150" />
-                <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-300" />
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150" />
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300" />
               </div>
             </motion.div>
           )}
@@ -203,11 +203,11 @@ export default function Home() {
           initial={{ x: 80, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ item: "spring", stiffness: 80 }}
-          className="hidden lg:block ml-6"
+          className="hidden lg:block ml-6 max-h-[85vh] overflow-y-auto"
         >
           {componentData.item === "chart" && (
             <Chart
-              chartitem={componentData.chartitem}
+              chartType={componentData.chartType}
               data={componentData.data}
               options={componentData.options}
             />
