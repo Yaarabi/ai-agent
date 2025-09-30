@@ -13,7 +13,7 @@ return (
         <div className="h-[90vh] w-full max-w-lg bg-gray-900/70 backdrop-blur-md border border-gray-800 rounded-2xl shadow-2xl flex flex-col">
         <header className="p-6 border-b border-gray-800">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            📅 {calendar.key}
+            📅 {calendar?.key}
             </h2>
         </header>
 
@@ -22,7 +22,7 @@ return (
             ref={calendarRef}
             className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
         >
-            {calendar.value.map((entry, index) => (
+            {calendar?.value?.map((entry, index) => (
             <div
                 key={index}
                 className="border border-gray-700 rounded-xl p-4 transition-all hover:border-purple-500/60 hover:shadow-lg hover:shadow-purple-500/10"

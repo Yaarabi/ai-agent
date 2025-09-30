@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(request) {
     try {
         const { key, value } = await request.json();
-        const newMemory = new Memory({ key, value });
+        const newMemory = new Memory({ key });
         await newMemory.save();
         return new Response(JSON.stringify(newMemory), { status: 201 });
     } catch (error) {
@@ -27,8 +27,8 @@ export async function POST(request) {
 
 export async function PUT(request) {
     try {
-        const { id, key, value } = await request.json();
-        const updatedMemory = await Memory.findByIdAndUpdate(id, { key, value }, { new: true });
+        const { id, key } = await request.json();
+        const updatedMemory = await Memory.findByIdAndUpdate(id, { key }, { new: true });
         if (!updatedMemory) {
             return new Response(JSON.stringify({ error: 'Memory not found' }), { status: 404 });
         }   

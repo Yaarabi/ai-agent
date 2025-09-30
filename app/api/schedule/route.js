@@ -11,7 +11,8 @@ export async function GET() {
                     messages: [
                         {
                             role: "user",
-                            content: "generate a caption and image URL that relevant with the caption, about Yura IT solutions, once you generate that, Post it on instagram"
+                            content: `check the Yura IT nstagram Calendar and see what relevant with today and post it in instagram.
+                                        use image palce of the vedio and reel (still we have in issue with vedios)`
                         }
                     ]
                     },

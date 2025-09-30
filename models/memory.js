@@ -5,19 +5,7 @@ const memorySchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true, 
-    },
-    value: {
-        type: mongoose.Schema.Types.Mixed, 
-        required: true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    lastUpdated: {
-        type: Date,
-        default: Date.now,
-    },
+    }
 });
 
 memorySchema.pre("save", function (next) {
