@@ -5,13 +5,14 @@ import { testAgent } from "@/lib/agent.js";
 export async function GET() {
     try {
         
-        
+        const now = new Date();
+        const today = now.toLocaleString('en-US', { weekday: 'long' });
         
         const response = await testAgent.invoke({
                     messages: [
                         {
                             role: "user",
-                            content: `check the Yura IT nstagram Calendar and see what relevant with today and post it in instagram.
+                            content: `check the Yura IT nstagram Calendar and see what relevant with ${today} and post it in instagram.
                                         use image palce of the vedio and reel (still we have in issue with vedios)`
                         }
                     ]
